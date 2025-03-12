@@ -24,3 +24,16 @@ def add_event(name, location, date, tickets):
     session.commit()
     session.close()
     click.echo(f"Event '{name}' added successfully!")
+
+#list events command
+@click.command()
+def list_events():
+    """List all events"""
+    session = SessionLocal()
+    events = session.query(Event).all()
+    if not events:
+        click.echo("No events available.")
+    else:
+        for event in events:
+            click.echo(f"{event.id}: {event.name} - {event.location} on {event.date} ({event.available_tickets} tickets left)")
+    session.close()
