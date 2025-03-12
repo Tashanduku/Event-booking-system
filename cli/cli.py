@@ -63,3 +63,19 @@ def book_ticket(event_id, user):
         click.echo("No tickets available.")
     
     session.close()
+
+
+#view bookings 
+@click.command()
+@click.option("--user", prompt="Your Name", help="Your name to view bookings")
+def view_bookings(user):
+    """View your bookings"""
+    session = SessionLocal()
+    bookings = session.query(Booking).filter_by(user_name=user).all()
+    if not bookings:
+        click.echo(f"No bookings found for {user}.")
+    else:
+        for booking in bookings:
+            event = session.query(Event).filter_by(id=booking.event_id).first()
+            click.echo(f"{event.name} - {event.location} on {event.date}")
+    session.close()
