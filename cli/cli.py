@@ -85,3 +85,29 @@ cli.add_command(add_event)
 cli.add_command(list_events)
 cli.add_command(book_ticket)
 cli.add_command(view_bookings)
+
+
+#event cancellation
+
+@click.command()
+@click.option("--event_id", prompt="Event ID", type=int, help="ID of the event to cancel")
+def cancel_event(event_id):
+    """Cancel an event"""
+    session = SessionLocal()
+    event = session.query(Event).filter_by(id=event_id).first()
+    
+    if not event:
+        click.echo("Event not found.")
+        session.close()
+        return
+    
+    session.query(Booking).filter_by(event_id=event.id).delete()
+    
+  
+    session.delete(event)
+    session.commit()
+    session.close()
+    click.echo(f"Event ID {event_id} has been canceled.")
+
+
+cli.add_command(cancel_event)
