@@ -81,14 +81,7 @@ def view_bookings(user):
     session.close()
 
 
-cli.add_command(add_event)
-cli.add_command(list_events)
-cli.add_command(book_ticket)
-cli.add_command(view_bookings)
-
-
 #event cancellation
-
 @click.command()
 @click.option("--event_id", prompt="Event ID", type=int, help="ID of the event to cancel")
 def cancel_event(event_id):
@@ -110,4 +103,14 @@ def cancel_event(event_id):
     click.echo(f"Event ID {event_id} has been canceled.")
 
 
+
+
+
+cli.add_command(add_event)
+cli.add_command(list_events)
+cli.add_command(book_ticket)
+cli.add_command(view_bookings)
 cli.add_command(cancel_event)
+
+
+
