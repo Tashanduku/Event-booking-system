@@ -79,3 +79,9 @@ def view_bookings(user):
             event = session.query(Event).filter_by(id=booking.event_id).first()
             click.echo(f"{event.name} - {event.location} on {event.date}")
     session.close()
+
+
+cli.add_command(add_event)
+cli.add_command(list_events)
+cli.add_command(book_ticket)
+cli.add_command(view_bookings)
