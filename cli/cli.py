@@ -118,3 +118,4 @@ cli.add_command(list_events)
 cli.add_command(book_ticket)
 cli.add_command(view_bookings)
 cli.add_command(cancel_event)
+
